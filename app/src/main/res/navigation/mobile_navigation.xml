@@ -3,12 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_clasificacion">
-
+    app:startDestination="@id/navigation_home">
 
     <fragment
-        android:id="@+id/nav_clasificacion"
-        android:name="com.example.rogpt.ClasificacionFragment"
-        android:label="Clasificación"
+        android:id="@+id/navigation_home"
+        android:name="com.example.appfutbol.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_simulacion"
+        android:name="com.example.appfutbol.ui.simulacion.SimulacionFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_simulacion" />
+
+    <fragment
+        android:id="@+id/navigation_clasificacion"
+        android:name="com.example.appfutbol.ui.clasificacion.ClasificacionFragment"
+        android:label="@string/title_notifications"
         tools:layout="@layout/fragment_clasificacion" />
+
+    <fragment
+        android:id="@+id/navigation_directo"
+        android:name="com.example.appfutbol.ui.directo.DirectoFragment"
+        android:label="fragment_directo"
+        tools:layout="@layout/fragment_directo" />
 </navigation>

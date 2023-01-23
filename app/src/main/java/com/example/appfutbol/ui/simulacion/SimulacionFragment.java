@@ -16,10 +16,8 @@ public class SimulacionFragment extends Fragment {
 
     private FragmentSimulacionBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        SimulacionViewModel simulacionViewModel =
-                new ViewModelProvider(this).get(SimulacionViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        SimulacionViewModel simulacionViewModel = new ViewModelProvider(this).get(SimulacionViewModel.class);
 
         binding = FragmentSimulacionBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

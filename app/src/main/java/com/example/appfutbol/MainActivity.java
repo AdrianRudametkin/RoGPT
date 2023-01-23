@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     // Utilizar binding para facilitar el uso de views en el programa
     //https://developer.android.com/topic/libraries/view-binding#java
     private ActivityMainBinding binding;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +31,18 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Añadir los fragments que formaran parte del menu. Agregar todos los fragmets que sean de alto nivel
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_simulacion, R.id.navigation_clasificacion, R.id.navigation_directo)
+                R.id.navigation_home, R.id.navigation_simulacion, R.id.navigation_clasificacion, R.id.navigation_directo, R.id.navigation_momentos)
                 .build();
         // Crear y añadir el controlador de layouts
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
         // Agregar el controlador a la vista
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+    @Override
+    public boolean onSupportNavigateUp(){
+        return navController.navigateUp();
+    }
 }

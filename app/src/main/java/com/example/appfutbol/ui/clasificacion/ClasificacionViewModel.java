@@ -10,7 +10,7 @@ public class ClasificacionViewModel extends ViewModel {
 
     public ClasificacionViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("Fragmento de clasificacion");
     }
 
     public LiveData<String> getText() {

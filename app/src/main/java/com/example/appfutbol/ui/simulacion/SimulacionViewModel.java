@@ -10,7 +10,7 @@ public class SimulacionViewModel extends ViewModel {
 
     public SimulacionViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("Pagina de simulación");
     }
 
     public LiveData<String> getText() {

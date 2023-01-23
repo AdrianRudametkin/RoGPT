@@ -6,26 +6,42 @@
     app:startDestination="@id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.appfutbol.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_momentos"
+        android:name="com.example.appfutbol.ui.momentos.MomentosFragment"
+        android:label="@string/title_momentos"
+        tools:layout="@layout/fragment_momentos" >
+        <action
+            android:id="@+id/action_navigation_momentos_to_navigation_memoria"
+            app:destination="@id/navigation_memoria" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_memoria"
+        android:name="com.example.appfutbol.ui.momentos.MemoriaFragment"
+        android:label="Crear Nueva Memoria"
+        tools:layout="@layout/fragment_memoria" />
 
     <fragment
         android:id="@+id/navigation_simulacion"
         android:name="com.example.appfutbol.ui.simulacion.SimulacionFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_simulacion"
         tools:layout="@layout/fragment_simulacion" />
 
     <fragment
         android:id="@+id/navigation_clasificacion"
         android:name="com.example.appfutbol.ui.clasificacion.ClasificacionFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_clasificacion"
         tools:layout="@layout/fragment_clasificacion" />
 
     <fragment
         android:id="@+id/navigation_directo"
         android:name="com.example.appfutbol.ui.directo.DirectoFragment"
-        android:label="fragment_directo"
+        android:label="@string/title_directo"
         tools:layout="@layout/fragment_directo" />
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.appfutbol.ui.home.HomeFragment"
+        android:label="@string/title_inicio"
+        tools:layout="@layout/fragment_home" />
 </navigation>

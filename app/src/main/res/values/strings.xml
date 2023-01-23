@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">AppFutbol</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_inicio">Inicio</string>
+    <string name="title_simulacion">Simulación</string>
+    <string name="title_clasificacion">Clasificación</string>
+    <string name="title_directo">En Juego</string>
+    <string name="title_momentos">Momentazos</string>
 </resources>

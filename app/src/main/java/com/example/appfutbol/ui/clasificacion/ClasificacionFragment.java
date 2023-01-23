@@ -10,21 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.appfutbol.chuck.ChuckNorris;
 import com.example.appfutbol.databinding.FragmentClasificacionBinding;
+import com.example.appfutbol.databinding.FragmentSimulacionBinding;
+import com.example.appfutbol.ui.simulacion.SimulacionViewModel;
 
 public class ClasificacionFragment extends Fragment {
 
     private FragmentClasificacionBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        ClasificacionViewModel clasificacionViewModel =
-                new ViewModelProvider(this).get(ClasificacionViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        ClasificacionViewModel clasificacionViewModel = new ViewModelProvider(this).get(ClasificacionViewModel.class);
 
         binding = FragmentClasificacionBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
+        final TextView textView = binding.textClasificacion;
         clasificacionViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }

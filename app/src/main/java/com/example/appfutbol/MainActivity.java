@@ -1,10 +1,21 @@
 package com.example.appfutbol;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.example.appfutbol.chuck.ChuckNorris;
+import com.example.appfutbol.databinding.FragmentHomeBinding;
+import com.example.appfutbol.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -27,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         // Hacer este el layout para visualizar
         setContentView(binding.getRoot());
 
+
         // Crear el menu de navegacion
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Añadir los fragments que formaran parte del menu. Agregar todos los fragmets que sean de alto nivel
@@ -44,5 +56,41 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp(){
         return navController.navigateUp();
+    }
+
+    private final static String CANAL_NOTIFICACION_CHUCK = "canal_chuck";
+    private ChuckNorris chuck;
+
+    public void notificacionChuck() {
+        // Clase de ChuckNorris para sacar frases aleatorias
+        Context context = getBaseContext();
+        if(chuck == null)
+            chuck = ChuckNorris.getInstance(context);
+
+        String frase = chuck.getFrase();
+        Log.i("APP",frase);
+
+        // Para crear el canal de notificaciones
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Canal Chuck Norris";
+            String descripcion = "Chistes de chuck norris";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel nChannel = new NotificationChannel(CANAL_NOTIFICACION_CHUCK, name, importance);
+            nChannel.setDescription(descripcion);
+            NotificationManager nManager = context.getSystemService(NotificationManager.class);
+            nManager.createNotificationChannel(nChannel);
+        }
+
+        // Crear la notificacion
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CANAL_NOTIFICACION_CHUCK)
+                .setSmallIcon(R.drawable.icon_chuck)
+                .setContentTitle("Secretos Chuck")
+                .setContentText(frase)
+                .setStyle(new NotificationCompat.BigTextStyle())
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        // Enviar la notificacion
+        NotificationManagerCompat nManager = NotificationManagerCompat.from(context);
+        nManager.notify(1, builder.build());
     }
 }

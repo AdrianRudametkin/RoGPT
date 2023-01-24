@@ -19,5 +19,5 @@
 
     <color name="black">#FF000000</color>
     <color name="on_color">#F3F8F6</color>
-    <color name="hint_color">#938061</color>
+    <color name="hint_color">#70F3F8F6</color>
 </resources>

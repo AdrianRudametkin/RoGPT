@@ -2,6 +2,7 @@ package com.example.appfutbol.chuck;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ChuckNorris {
-    private ArrayList<String> frases;
-    private Context context;
+    private static ArrayList<String> frases;
+    private static Context context;
     private static ChuckNorris instance;
 
 
@@ -31,14 +32,17 @@ public class ChuckNorris {
             String linea;
 
             while((linea=br.readLine()) != null) {
-                if(linea.trim().isEmpty())
+                if(!linea.trim().isEmpty())
                     frases.add(linea);
             }
-
+            br.close();
+            is.close();
         } catch (IOException e) {
+            e.printStackTrace();
             frases.add("Chuck norris esta cansado y no tiene ganas de decir nada.");
         }
 
+        am.close();
         return frases;
     }
 

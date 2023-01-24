@@ -29,5 +29,6 @@
         <item name="android:textColor">@color/on_color</item>
         <item name="android:textColorPrimary">@color/on_color</item>
         <item name="backgroundTint">@color/primary_variant</item>
+        <item name="hintTextColor">@color/hint_color</item>
     </style>
 </resources>

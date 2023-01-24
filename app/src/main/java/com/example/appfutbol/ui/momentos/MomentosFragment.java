@@ -14,10 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.appfutbol.R;
-import com.example.appfutbol.databinding.FragmentHomeBinding;
-import com.example.appfutbol.databinding.FragmentMomentosBinding;
-import com.example.appfutbol.ui.home.HomeViewModel;
+import com.example.rogpt.R;
+import com.example.rogpt.databinding.FragmentMomentosBinding;
 
 public class MomentosFragment extends Fragment {
 

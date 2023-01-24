@@ -3,8 +3,6 @@ package com.example.appfutbol.chuck;
 import android.content.Context;
 import android.content.res.AssetManager;
 
-import com.example.appfutbol.R;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,7 +31,7 @@ public class ChuckNorris {
             String linea;
 
             while((linea=br.readLine()) != null) {
-                if(!linea.isBlank())
+                if(linea.trim().isEmpty())
                     frases.add(linea);
             }
 

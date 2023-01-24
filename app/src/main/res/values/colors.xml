@@ -8,7 +8,7 @@
     <color name="secondary_variant">#F6CD8B</color>
     <color name="on_secondary">@color/on_color</color>
 
-    <color name="background">#0F1625</color>
+    <color name="background">#31436A</color>
     <color name="on_background">@color/on_color</color>
 
     <color name="surface">#060D15</color>
@@ -19,4 +19,5 @@
 
     <color name="black">#FF000000</color>
     <color name="on_color">#F3F8F6</color>
+    <color name="hint_color">#938061</color>
 </resources>

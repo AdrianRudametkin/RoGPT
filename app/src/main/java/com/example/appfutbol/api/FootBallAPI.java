@@ -1,6 +1,10 @@
 package com.example.appfutbol.api;
 
 
+import com.example.appfutbol.api.models.CountryModel;
+import com.example.appfutbol.api.models.FixtureModel;
+import com.example.appfutbol.api.models.TeamModel;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +24,9 @@ public class FootBallAPI {
 
     // Variables estaticas
     private static FootBallAPI fbApi;
+    private static ArrayList<CountryModel> countries;
+    private static ArrayList<FixtureModel> fixtures;
+    private static ArrayList<TeamModel> teams;
 
 
     private OkHttpClient client;

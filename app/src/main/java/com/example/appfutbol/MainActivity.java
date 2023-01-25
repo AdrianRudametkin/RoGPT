@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             CharSequence name = "Canal Chuck Norris";
             String descripcion = "Chistes de chuck norris";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel nChannel = new NotificationChannel(CANAL_NOTIFICACION_CHUCK, name, importance);
             nChannel.setDescription(descripcion);
             NotificationManager nManager = context.getSystemService(NotificationManager.class);
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 .setContentTitle("Secretos Chuck")
                 .setContentText(frase)
                 .setStyle(new NotificationCompat.BigTextStyle())
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         // Enviar la notificacion
         NotificationManagerCompat nManager = NotificationManagerCompat.from(context);

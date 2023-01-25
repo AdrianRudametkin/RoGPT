@@ -4,10 +4,9 @@ import android.graphics.Bitmap;
 
 import java.util.ArrayList;
 
-public class LegueModel {
-    private int id;
+public class CountryModel {
     private String name;
-    private String type;
-    private Bitmap logo;
-    private String countryCode;
+    private String code;
+    private Bitmap image;
+    private ArrayList<LegueModel> legues;
 }

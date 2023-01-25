@@ -1,5 +1,6 @@
 package com.example.appfutbol.ui.home;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -28,29 +29,21 @@ import com.example.appfutbol.databinding.FragmentHomeBinding;
 import com.example.appfutbol.ui.directo.DirectoViewModel;
 
 public class HomeFragment extends Fragment {
-
     private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //setContext(getContext());
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         binding.buttonChuck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!getActivity().isFinishing() || !getActivity().isDestroyed())
-                    ((MainActivity)getContext()).notificacionChuck();
+                notificacionChuck(v);
             }
         });
-
-        // Crear el generador de frases
-
         return root;
     }
-
 
 
     @Override
@@ -58,4 +51,25 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    public void notificacionChuck(View v){
+        Context context = getContext();
+        String CHUCK_CHANNEL = "canal_chuck";
+        String CHUCK_CHANNEL_GROUPING = "com.android.example.CHUCK";
+
+        String frase = ChuckNorris.getFrase();
+
+        Notification notification = new NotificationCompat.Builder(context, CHUCK_CHANNEL)
+                .setSmallIcon(R.drawable.icon_chuck)
+                .setContentText(frase)
+                .setStyle(new NotificationCompat.BigTextStyle())
+                .setGroup(CHUCK_CHANNEL_GROUPING)
+                .setAutoCancel(true)
+                .build();
+
+
+        NotificationManagerCompat notificationManagerCompat= NotificationManagerCompat.from(context);
+        notificationManagerCompat.notify(1, notification);
+    }
+
 }

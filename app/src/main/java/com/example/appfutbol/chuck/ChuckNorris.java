@@ -1,5 +1,6 @@
 package com.example.appfutbol.chuck;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
@@ -11,14 +12,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ChuckNorris {
+public class ChuckNorris extends Application {
     private static ArrayList<String> frases;
     private static Context context;
-    private static ChuckNorris instance;
 
-
-    private ChuckNorris(Context context){
-        this.context = context;
+    @Override
+    public void onCreate(){
+        super.onCreate();
+        context = getApplicationContext();
         frases = getFrasesFromFile();
     }
 
@@ -46,14 +47,7 @@ public class ChuckNorris {
         return frases;
     }
 
-    public static ChuckNorris getInstance(Context context){
-        if(instance==null)
-            instance = new ChuckNorris(context);
-
-        return instance;
-    }
-
-    public String getFrase(){
+    public static String getFrase(){
         Random r = new Random();
         int randomIndex = r.nextInt(frases.size());
         return frases.get(randomIndex);

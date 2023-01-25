@@ -1,21 +1,10 @@
 package com.example.appfutbol;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.example.appfutbol.chuck.ChuckNorris;
-import com.example.appfutbol.databinding.FragmentHomeBinding;
-import com.example.appfutbol.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -51,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Agregar el controlador a la vista
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        // Esconder la barra de arriba
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
     }
 
     @Override
@@ -58,39 +52,20 @@ public class MainActivity extends AppCompatActivity {
         return navController.navigateUp();
     }
 
-    private final static String CANAL_NOTIFICACION_CHUCK = "canal_chuck";
-    private ChuckNorris chuck;
+    /*public void notificacionChuck() {
+        // Generar la fecha en la que saltará la notificación; en 1'5 segundos desde ahora
+        Date date = new Date();
+        long timeInMilis = System.currentTimeMillis()+1000;
 
-    public void notificacionChuck() {
-        // Clase de ChuckNorris para sacar frases aleatorias
-        Context context = getBaseContext();
-        if(chuck == null)
-            chuck = ChuckNorris.getInstance(context);
+        Log.i("time: ", String.valueOf(timeInMilis));
 
-        String frase = chuck.getFrase();
-        Log.i("APP",frase);
+        AlarmManager alarmManager = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
 
-        // Para crear el canal de notificaciones
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "Canal Chuck Norris";
-            String descripcion = "Chistes de chuck norris";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel nChannel = new NotificationChannel(CANAL_NOTIFICACION_CHUCK, name, importance);
-            nChannel.setDescription(descripcion);
-            NotificationManager nManager = context.getSystemService(NotificationManager.class);
-            nManager.createNotificationChannel(nChannel);
-        }
+        Intent intent = new Intent(this, MyBroadcastReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_IMMUTABLE);
 
-        // Crear la notificacion
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CANAL_NOTIFICACION_CHUCK)
-                .setSmallIcon(R.drawable.icon_chuck)
-                .setContentTitle("Secretos Chuck")
-                .setContentText(frase)
-                .setStyle(new NotificationCompat.BigTextStyle())
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()+1000, pendingIntent);
+    }*/
 
-        // Enviar la notificacion
-        NotificationManagerCompat nManager = NotificationManagerCompat.from(context);
-        nManager.notify(1, builder.build());
-    }
+
 }

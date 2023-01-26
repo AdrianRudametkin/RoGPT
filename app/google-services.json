@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "689741676605",
+    "project_id": "rogpt-61c8e",
+    "storage_bucket": "rogpt-61c8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689741676605:android:c879ec50acdf5e9f456a54",
+        "android_client_info": {
+          "package_name": "com.example.appfutbol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689741676605-92apel0i7vvv8857glg9gsr4kk1k3krt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP1CmA7jGqCKijzo9QfofmJ2OFDKMSgGk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689741676605-92apel0i7vvv8857glg9gsr4kk1k3krt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

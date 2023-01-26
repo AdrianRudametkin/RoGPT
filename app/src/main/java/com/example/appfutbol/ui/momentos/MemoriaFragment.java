@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.appfutbol.R;
+import com.example.appfutbol.chuck.ChuckNorris;
 import com.example.appfutbol.databinding.FragmentMemoriaBinding;
 import com.example.appfutbol.ui.home.HomeViewModel;
 
@@ -33,9 +34,9 @@ public class MemoriaFragment extends Fragment{
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
         binding = FragmentMemoriaBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
         binding.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,8 +51,7 @@ public class MemoriaFragment extends Fragment{
             }
         });
 
-        View root = binding.getRoot();
-
+        // Listener (cuando se selecciona) para el dialogo por defecto de seleccion de fecha
         dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -73,9 +73,12 @@ public class MemoriaFragment extends Fragment{
         binding = null;
     }
 
+    /**
+     * Método onClick para abrir la cámara, tomar una foto y guardarla.
+     * Pedirá permisos al usuario si la aplicación no puede acceder a la camara.
+     */
     private void takePicture(){
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
-        != PackageManager.PERMISSION_GRANTED){
+        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
             requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
         }else{
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -89,26 +92,9 @@ public class MemoriaFragment extends Fragment{
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == REQUEST_IMAGE_CAPTURE){
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            binding.imageView.setImageBitmap(imageBitmap);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
-        if(requestCode == REQUEST_CAMERA_PERMISSION){
-            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
-            else
-                Toast.makeText(getContext(), "No tienes permisos para hacer fotos.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
+    /**
+     * Método onClick que abra el dialogo de selector de fecha con la fecha de hoy
+     */
     public void openDateDialog(){
         Calendar mCalendar = Calendar.getInstance();
         int year = mCalendar.get(Calendar.YEAR);
@@ -119,5 +105,53 @@ public class MemoriaFragment extends Fragment{
                 dateSetListener,
                 year, month, dayOfMonth);
         d.show();
+    }
+
+    /**
+     * Método listener que recoge la imagen una vez tomada. Si el usuario decidio cancelar, la imagen no se modifica ni se guarda.
+     * @param requestCode The integer request code originally supplied to
+     *                    startActivityForResult(), allowing you to identify who this
+     *                    result came from.
+     * @param resultCode The integer result code returned by the child activity
+     *                   through its setResult().
+     * @param data An Intent, which can return result data to the caller
+     *               (various data can be attached to Intent "extras").
+     *
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == REQUEST_IMAGE_CAPTURE){
+            if(data == null)
+                return;
+
+            Bundle extras = data.getExtras();
+            if(extras==null || !extras.keySet().contains("data"))
+                return;
+
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            if(imageBitmap!=null) {
+                binding.imageView.setImageBitmap(imageBitmap);
+            }
+        }
+    }
+
+    /**
+     * Método listener que recoge el resultado de la petición de permisos.
+     * @param requestCode The request code passed in {@link #requestPermissions(String[], int)}.
+     * @param permissions The requested permissions. Never null.
+     * @param grantResults The grant results for the corresponding permissions
+     *     which is either {@link android.content.pm.PackageManager#PERMISSION_GRANTED}
+     *     or {@link android.content.pm.PackageManager#PERMISSION_DENIED}. Never null.
+     *
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+        if(requestCode == REQUEST_CAMERA_PERMISSION){
+            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+            else
+                Toast.makeText(getContext(), "No tienes permisos para hacer fotos.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

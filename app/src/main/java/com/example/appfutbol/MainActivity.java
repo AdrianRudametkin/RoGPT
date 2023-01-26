@@ -1,7 +1,9 @@
 package com.example.appfutbol;
 
 import android.os.Bundle;
+import android.view.View;
 
+import com.example.appfutbol.chuck.ChuckNorris;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         // Recoger el view binding de la vista activity_main
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         // Hacer este el layout para visualizar
@@ -41,6 +45,23 @@ public class MainActivity extends AppCompatActivity {
         // Agregar el controlador a la vista
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        // Esconeder la barra de abajo cuando estemos en la patanlla de crear una nueva memoria
+        navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
+                if(navDestination.getId() == R.id.navigation_memoria) {
+                    navView.setVisibility(View.GONE);
+                    // Esconder la barra de arriba
+                    if (getSupportActionBar() != null) {
+                        getSupportActionBar().show();
+                    }
+                } else {
+                    navView.setVisibility(View.VISIBLE);
+                    // Esconder la barra de arriba
+                    if (getSupportActionBar() != null) {
+                        getSupportActionBar().hide();
+                    }
+                }
+            });
+
         // Esconder la barra de arriba
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -52,20 +73,6 @@ public class MainActivity extends AppCompatActivity {
         return navController.navigateUp();
     }
 
-    /*public void notificacionChuck() {
-        // Generar la fecha en la que saltará la notificación; en 1'5 segundos desde ahora
-        Date date = new Date();
-        long timeInMilis = System.currentTimeMillis()+1000;
-
-        Log.i("time: ", String.valueOf(timeInMilis));
-
-        AlarmManager alarmManager = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-
-        Intent intent = new Intent(this, MyBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_IMMUTABLE);
-
-        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()+1000, pendingIntent);
-    }*/
 
 
 }

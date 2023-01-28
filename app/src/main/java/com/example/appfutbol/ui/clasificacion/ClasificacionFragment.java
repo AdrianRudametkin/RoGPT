@@ -10,10 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.appfutbol.chuck.ChuckNorris;
 import com.example.appfutbol.databinding.FragmentClasificacionBinding;
-import com.example.appfutbol.databinding.FragmentSimulacionBinding;
-import com.example.appfutbol.ui.simulacion.SimulacionViewModel;
 
 public class ClasificacionFragment extends Fragment {
 

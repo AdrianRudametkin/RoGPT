@@ -2,6 +2,7 @@ package com.example.appfutbol.ui.momentos;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -10,18 +11,16 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.appfutbol.R;
-import com.example.appfutbol.chuck.ChuckNorris;
 import com.example.appfutbol.databinding.FragmentMemoriaBinding;
-import com.example.appfutbol.ui.home.HomeViewModel;
+import com.example.appfutbol.firebase.MomentosDatabase;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -37,6 +36,19 @@ public class MemoriaFragment extends Fragment{
         binding = FragmentMemoriaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // Para pode coger la imagen y guardarla en un Bitmap
+        binding.imageView.setDrawingCacheEnabled(true);
+
+        // Para esconder el teclado cuando pulsemos fuera de los TextEdit
+        binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(root.getWindowToken(),0);
+            }
+        });
+
+        // Listener para cambiar la foto
         binding.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,10 +56,19 @@ public class MemoriaFragment extends Fragment{
             }
         });
 
+        // Listener para cambiar la fecha
         binding.textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDateDialog();
+            }
+        });
+
+        // Listener para el boton de agregar
+        binding.buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveData();
             }
         });
 
@@ -65,6 +86,19 @@ public class MemoriaFragment extends Fragment{
         };
 
         return root;
+    }
+
+    private void saveData() {
+        String titulo = binding.editTextTitulo.getText().toString();
+        String fecha = binding.textViewDate.getText().toString();
+        String descripcion = binding.editTextTextMultiLine.getText().toString();
+        Bitmap imagen = binding.imageView.getDrawingCache();
+        if(titulo.isEmpty()){
+            Toast.makeText(getContext(), "No puedes dejar el título vacio", Toast.LENGTH_SHORT).show();
+        }else{
+            MomentosDatabase.getInstance().insertarMomento(titulo, descripcion, fecha, imagen.copy(imagen.getConfig(), true));
+        }
+        imagen.recycle();
     }
 
     @Override

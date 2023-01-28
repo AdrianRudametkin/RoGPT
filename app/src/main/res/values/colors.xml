@@ -22,4 +22,6 @@
     <color name="hint_color">#70F3F8F6</color>
 
     <color name="border">#E6322B</color>
+
+    <color name="navBar">#F6CD8B</color>
 </resources>

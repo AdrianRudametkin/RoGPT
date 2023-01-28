@@ -3,7 +3,6 @@ package com.example.appfutbol;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.appfutbol.chuck.ChuckNorris;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;

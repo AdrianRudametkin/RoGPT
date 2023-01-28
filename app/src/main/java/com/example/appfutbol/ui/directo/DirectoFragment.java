@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,11 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.appfutbol.R;
-import com.example.appfutbol.chuck.ChuckNorris;
-import com.example.appfutbol.databinding.FragmentClasificacionBinding;
 import com.example.appfutbol.databinding.FragmentDirectoBinding;
-import com.example.appfutbol.ui.clasificacion.ClasificacionViewModel;
 
 public class DirectoFragment extends Fragment {
 

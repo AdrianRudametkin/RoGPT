@@ -104,10 +104,12 @@ public class MomentosFragment extends Fragment {
     }
 
     private void borrarMomento(int index) {
+
         db.collection("momentos").document(listaMomentos.get(index).getId()).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                        FirebaseStorage.getInstance().getReferenceFromUrl(listaMomentos.get(index).getImagenUrl());
                         listaMomentos.remove(index);
                         adapter.notifyDataSetChanged();
                     }

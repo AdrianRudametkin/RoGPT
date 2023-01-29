@@ -32,7 +32,6 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class MomentosFragment extends Fragment {
-
     private FragmentMomentosBinding binding;
     private MemoriaAdapter adapter;
     private ArrayList<Momento> listaMomentos;

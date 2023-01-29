@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
 
 import com.example.appfutbol.R;
 import com.example.appfutbol.databinding.FragmentMemoriaBinding;
@@ -43,20 +40,14 @@ public class MemoriaFragment extends Fragment{
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private DatePickerDialog.OnDateSetListener dateSetListener;
-    private FragmentManager fragmentManager;
     private Bitmap imagenEntera;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMemoriaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        fragmentManager = getParentFragmentManager();
 
-        // Para pode coger la imagen y guardarla en un Bitmap
-        binding.imageView.setDrawingCacheEnabled(true);
 
-        // Poner la fecha de hoy en el TextView
-        binding.textViewDate.setText(DateFormat.getDateInstance(DateFormat.SHORT).format(System.currentTimeMillis()));
 
         // Para esconder el teclado cuando pulsemos fuera de los TextEdit
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
@@ -74,6 +65,7 @@ public class MemoriaFragment extends Fragment{
                 takePicture();
             }
         });
+        binding.imageView.setImageResource(R.drawable.football);
 
         // Listener para cambiar la fecha
         binding.textViewDate.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +74,8 @@ public class MemoriaFragment extends Fragment{
                 openDateDialog();
             }
         });
+        // Poner la fecha de hoy en el TextView
+        binding.textViewDate.setText(DateFormat.getDateInstance(DateFormat.SHORT).format(System.currentTimeMillis()));
 
         // Listener para el boton de agregar
         binding.buttonAdd.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +154,8 @@ public class MemoriaFragment extends Fragment{
                             binding.textViewDate.setText(DateFormat.getDateInstance(DateFormat.SHORT).format(System.currentTimeMillis()));
                             binding.editTextTitulo.setText("");
                             binding.editTextTextMultiLine.setText("");
-                            binding.imageView.setImageResource(R.drawable.soccer_ball_variant);
+                            binding.imageView.setImageResource(R.drawable.football);
+                            imagenEntera = null;
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

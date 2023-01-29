@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,26 +20,43 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
 
+import com.example.appfutbol.R;
 import com.example.appfutbol.databinding.FragmentMemoriaBinding;
-import com.example.appfutbol.firebase.MomentosDatabase;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MemoriaFragment extends Fragment{
     private FragmentMemoriaBinding binding;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private DatePickerDialog.OnDateSetListener dateSetListener;
+    private FragmentManager fragmentManager;
+    private Bitmap imagenEntera;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMemoriaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        fragmentManager = getParentFragmentManager();
 
         // Para pode coger la imagen y guardarla en un Bitmap
         binding.imageView.setDrawingCacheEnabled(true);
+
+        // Poner la fecha de hoy en el TextView
+        binding.textViewDate.setText(DateFormat.getDateInstance(DateFormat.SHORT).format(System.currentTimeMillis()));
 
         // Para esconder el teclado cuando pulsemos fuera de los TextEdit
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
@@ -92,13 +111,65 @@ public class MemoriaFragment extends Fragment{
         String titulo = binding.editTextTitulo.getText().toString();
         String fecha = binding.textViewDate.getText().toString();
         String descripcion = binding.editTextTextMultiLine.getText().toString();
-        Bitmap imagen = binding.imageView.getDrawingCache();
-        if(titulo.isEmpty()){
+        // Convertimos la imagen a bytes
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if(imagenEntera!=null)
+            imagenEntera.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        else
+            ((BitmapDrawable)binding.imageView.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+        byte[] imgData = baos.toByteArray();
+
+        if(titulo.isEmpty()) {
             Toast.makeText(getContext(), "No puedes dejar el título vacio", Toast.LENGTH_SHORT).show();
-        }else{
-            MomentosDatabase.getInstance().insertarMomento(titulo, descripcion, fecha, imagen.copy(imagen.getConfig(), true));
+            return;
         }
-        imagen.recycle();
+
+        Map<String, Object> momento = new HashMap<>();
+        momento.put("titulo", titulo);
+        momento.put("descripcion", descripcion);
+        momento.put("fecha", fecha);
+
+        FirebaseFirestore.getInstance().collection("momentos").add(momento)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        subirImagen(documentReference, imgData);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "No se pudo guardar en la base de datos.", Toast.LENGTH_SHORT).show();
+                        binding.buttonAdd.setEnabled(true);
+                    }
+                });
+        // Deshabilitamos el boton para que, mientras se suben los datos, el usuario no puede volver a enviarlos
+        binding.buttonAdd.setEnabled(false);
+    }
+
+    private void subirImagen(DocumentReference documentReference, byte[] imgData){
+        String imgUrl = "gs://rogpt-futbolapp.appspot.com/img/"+documentReference.getId()+".png";
+            FirebaseStorage.getInstance()
+                    .getReferenceFromUrl(imgUrl)
+                    .putBytes(imgData)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            documentReference.update(Map.of("url_img",imgUrl));
+                            binding.buttonAdd.setEnabled(true);
+                            binding.textViewDate.setText(DateFormat.getDateInstance(DateFormat.SHORT).format(System.currentTimeMillis()));
+                            binding.editTextTitulo.setText("");
+                            binding.editTextTextMultiLine.setText("");
+                            binding.imageView.setImageResource(R.drawable.soccer_ball_variant);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(), "No se pudo subir la imagen. Pruebe otra vez.", Toast.LENGTH_SHORT).show();
+                            binding.buttonAdd.setEnabled(true);
+                        }
+                    });
     }
 
     @Override
@@ -162,10 +233,10 @@ public class MemoriaFragment extends Fragment{
             if(extras==null || !extras.keySet().contains("data"))
                 return;
 
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imagenEntera = (Bitmap) extras.get("data");
 
-            if(imageBitmap!=null) {
-                binding.imageView.setImageBitmap(imageBitmap);
+            if(imagenEntera!=null) {
+                binding.imageView.setImageBitmap(imagenEntera);
             }
         }
     }

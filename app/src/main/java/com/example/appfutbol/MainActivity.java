@@ -2,7 +2,9 @@ package com.example.appfutbol;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.appfutbol.databinding.ActivityMainBinding;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class MainActivity extends AppCompatActivity {
     // Utilizar binding para facilitar el uso de views en el programa

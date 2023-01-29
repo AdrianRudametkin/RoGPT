@@ -58,7 +58,7 @@ public class ChuckNorris{
         // Los permisos y credenciales se guardan en la propia aplicacion con el archivo "google-services.json"
         FirebaseStorage storage = FirebaseStorage.getInstance();
         // Cogemos la referencia al archivo que queremos de la base de datos
-        StorageReference chucktxt = storage.getReferenceFromUrl("gs://rogpt-61c8e.appspot.com/ChuckNorris.txt");
+        StorageReference chucktxt = storage.getReferenceFromUrl("gs://rogpt-futbolapp.appspot.com/ChuckNorris.txt");
 
         // Inicializamos el ArrayList
         frases = new ArrayList<>();

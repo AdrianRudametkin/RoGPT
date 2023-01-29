@@ -5,51 +5,63 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:paddingStart="15dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="15dp"
+    android:paddingBottom="10dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/error"
-        android:orientation="horizontal"
-        android:weightSum="4">
+        android:background="@drawable/image_border"
+        android:backgroundTint="@color/navBar"
+        android:backgroundTintMode="add"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/imageViewMomento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/chuck" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:orientation="vertical">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMomento"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/textViewTitulo"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
                 android:text="TextView"
-                android:textAlignment="center"
+                android:textAlignment="viewStart"
                 android:textAllCaps="true"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewDescripcion"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:paddingStart="5dp"
                 android:text="Momentazo en el partido del valencia-atletico" />
 
             <TextView
                 android:id="@+id/textViewFecha"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingStart="5dp"
                 android:text="⏰ 12/08/1222" />
         </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

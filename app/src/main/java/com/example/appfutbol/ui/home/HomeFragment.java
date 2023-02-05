@@ -1,7 +1,10 @@
 package com.example.appfutbol.ui.home;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +61,14 @@ public class HomeFragment extends Fragment {
         // Crear un numero aleatorio de id para que una notificacion no sobre escriba a otra
         Random random = new Random();
 
+        NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Crear un canal para versiones de Android superiores a Android Oreo
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CHUCK_CHANNEL,"Frases Chuck Norris", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+
+        }
         // Notificación principal
         Notification notification = new NotificationCompat.Builder(context, CHUCK_CHANNEL)
                 .setContentTitle("El cajón de Chuck")
@@ -78,9 +89,8 @@ public class HomeFragment extends Fragment {
                 .build();
 
         // Lanzar las notificaciones
-        NotificationManagerCompat notificationManagerCompat= NotificationManagerCompat.from(context);
-        notificationManagerCompat.notify(random.nextInt(), notification);
-        notificationManagerCompat.notify(1,summaryNotification);
+        notificationManager.notify(random.nextInt(), notification);
+        notificationManager.notify(1,summaryNotification);
     }
 
 }

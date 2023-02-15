@@ -3,7 +3,9 @@ package com.example.appfutbol.ui.simulacion;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
+/**
+ * Rogelio Rodriguez
+ */
 public class SimulacionViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;

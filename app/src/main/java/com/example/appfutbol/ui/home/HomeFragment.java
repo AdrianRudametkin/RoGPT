@@ -20,7 +20,9 @@ import com.example.appfutbol.firebase.ChuckNorris;
 import com.example.appfutbol.databinding.FragmentHomeBinding;
 
 import java.util.Random;
-
+/**
+ * Rogelio Rodriguez
+ */
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
 

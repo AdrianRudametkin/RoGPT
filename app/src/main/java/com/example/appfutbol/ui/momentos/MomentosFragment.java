@@ -30,7 +30,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-
+/**
+ * Rogelio Rodriguez
+ */
 public class MomentosFragment extends Fragment {
     private FragmentMomentosBinding binding;
     private MemoriaAdapter adapter;

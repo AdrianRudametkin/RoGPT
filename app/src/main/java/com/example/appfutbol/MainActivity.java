@@ -18,7 +18,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
-
+/**
+ * Rogelio Rodriguez
+ */
 public class MainActivity extends AppCompatActivity {
     // Utilizar binding para facilitar el uso de views en el programa
     //https://developer.android.com/topic/libraries/view-binding#java
@@ -77,7 +79,4 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp(){
         return navController.navigateUp();
     }
-
-
-
 }

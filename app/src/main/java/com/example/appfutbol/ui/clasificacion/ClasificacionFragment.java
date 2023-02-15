@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.appfutbol.databinding.FragmentClasificacionBinding;
-
+/**
+ * Rogelio Rodriguez
+ */
 public class ClasificacionFragment extends Fragment {
 
     private FragmentClasificacionBinding binding;

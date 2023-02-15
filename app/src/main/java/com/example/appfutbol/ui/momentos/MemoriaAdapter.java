@@ -30,7 +30,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import kotlin.jvm.internal.Ref;
-
+/**
+ * Rogelio Rodriguez
+ */
+// Adaptador para el recycler view
 public class MemoriaAdapter extends RecyclerView.Adapter<MemoriaAdapter.ViewHolder> {
     private ArrayList<Momento> lista;
     private Context context;
@@ -123,6 +126,7 @@ public class MemoriaAdapter extends RecyclerView.Adapter<MemoriaAdapter.ViewHold
         return lista.size();
     }
 
+    // Clase que indica la vista de la lista del recycler view
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewTitulo, textViewDescripcion, textViewFecha;
         ImageView imageViewMomento;

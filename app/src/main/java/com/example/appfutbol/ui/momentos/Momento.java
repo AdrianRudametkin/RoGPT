@@ -1,7 +1,10 @@
 package com.example.appfutbol.ui.momentos;
 
 import android.graphics.Bitmap;
-
+/**
+ * Rogelio Rodriguez
+ */
+// Modelo objeto de un momento
 public class Momento {
     private String id;
     private String titulo;

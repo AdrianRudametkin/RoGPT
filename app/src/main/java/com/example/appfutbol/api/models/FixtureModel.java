@@ -1,5 +1,7 @@
 package com.example.appfutbol.api.models;
-
+/**
+ * Rogelio Rodriguez
+ */
 public class FixtureModel {
     // From fixture object
     private int id;

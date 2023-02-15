@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.appfutbol.databinding.FragmentDirectoBinding;
-
+/**
+ * Rogelio Rodriguez
+ */
 public class DirectoFragment extends Fragment {
 
     private FragmentDirectoBinding binding;

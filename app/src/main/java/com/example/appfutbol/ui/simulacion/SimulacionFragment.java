@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.appfutbol.databinding.FragmentSimulacionBinding;
-
+/**
+ * Rogelio Rodriguez
+ */
 public class SimulacionFragment extends Fragment {
 
     private FragmentSimulacionBinding binding;

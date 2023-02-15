@@ -7,7 +7,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
+/**
+ * Rogelio Rodriguez
+ */
+@Deprecated
+// Esta clase no esta implementada y no se utiliza en la aplicacion
 public class MatchRecyclerAdapter extends RecyclerView.Adapter<MatchRecyclerAdapter.ViewHolder> {
 
     private final String[] eq1 = {"0","1","2","3"};

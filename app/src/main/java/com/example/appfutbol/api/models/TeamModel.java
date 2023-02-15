@@ -1,7 +1,9 @@
 package com.example.appfutbol.api.models;
 
 import android.graphics.Bitmap;
-
+/**
+ * Rogelio Rodriguez
+ */
 public class TeamModel {
     // From the team object
     private int id;

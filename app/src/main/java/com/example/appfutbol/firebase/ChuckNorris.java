@@ -17,7 +17,9 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * Rogelio Rodriguez
+ */
 /**
  * El objetivo principal de esta clase es recoger una frase aleatoria sobre Chuck Norris.
  * Las frases estan almacenadas en una base de datos Firebase.

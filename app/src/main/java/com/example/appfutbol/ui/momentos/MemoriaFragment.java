@@ -35,6 +35,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Rogelio Rodriguez
+ */
 public class MemoriaFragment extends Fragment{
     private FragmentMemoriaBinding binding;
     private static final int REQUEST_IMAGE_CAPTURE = 1;

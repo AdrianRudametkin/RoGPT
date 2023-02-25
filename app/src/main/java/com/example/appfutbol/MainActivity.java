@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         // Recoger el view binding de la vista activity_main
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         // Hacer este el layout para visualizar

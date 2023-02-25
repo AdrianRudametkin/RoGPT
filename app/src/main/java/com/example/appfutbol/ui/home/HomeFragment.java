@@ -69,8 +69,8 @@ public class HomeFragment extends Fragment {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel = new NotificationChannel(CHUCK_CHANNEL,"Frases Chuck Norris", NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
-
         }
+
         // Notificación principal
         Notification notification = new NotificationCompat.Builder(context, CHUCK_CHANNEL)
                 .setContentTitle("El cajón de Chuck")
